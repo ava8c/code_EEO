@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -32,6 +33,36 @@ public class Main {
 
 
 
-	    System.out.println("StaminaMax: "+player.getStaminaMax());
+	    System.out.println("Inizio gioco");
+
+        Integer turnoCorrente = 0;
+        Integer numeroTurni = player.getNumeriTurni();
+        Integer[][] ricarica = new Integer[numeroTurni][2];
+        
+
+
     }
+
+    static String readFile(String path, Charset encoding) throws IOException {
+        byte[] encoded = Files.readAllBytes(Paths.get(path));
+        return new String(encoded, encoding);
+	    //System.out.println("StaminaMax: "+player.getStaminaMax());
+    }
+
+    public void sortDemons(List<Demon> demons) {
+
+    }
+
+    public Integer selectDemon(List<Demon> demons, Player yone, Demon lastDemon) {
+
+        int staminaRimanente = yone.getStamina();
+        List<Demon> affrontabili =
+                (List<Demon>) demons.stream().filter(d -> d.getStaminaPersa() <= staminaRimanente && !d.isAffrontato());
+
+
+        int staminaRicaricata =
+
+        return null;
+    }
+
 }
