@@ -26,7 +26,7 @@ public class Main {
     private static List<Ricarica> ricarica = new ArrayList<>();
 
     //private static String inputFile = "00-example.txt";
-    private static String inputFile = "05-androids-armageddon";
+    private static String[] inputFiles = {"00-example","01-the-cloud-abyss","02-iot-island-of-terror", "03-etheryum", "04-the-desert-of-autonomous-machines", "05-androids-armageddon"};
 
     private static Integer turnoCorrente = 1;
     private static Integer numeroTurni;
@@ -34,24 +34,27 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        player = InputParser.getPlayer(inputFile);
-        demoniInput = InputParser.getDemonsList(inputFile);
+        for (String inputFile : inputFiles) {
+            player = InputParser.getPlayer(inputFile);
+            demoniInput = InputParser.getDemonsList(inputFile);
 
-	    System.out.println("Inizio gioco");
-        numeroTurni = player.getNumeriTurni();
-        numeroTurniRimanenti = player.getNumeriTurni();
+            System.out.println("Inizio gioco");
+            numeroTurni = player.getNumeriTurni();
+            numeroTurniRimanenti = player.getNumeriTurni();
 
-        while(numeroTurniRimanenti > 0) {
-            addStamina();
-            Demon nextDemone = selectDemon();
-            if(nextDemone != null) {
-                affrontaDemone(nextDemone);
+            while (numeroTurniRimanenti > 0) {
+                addStamina();
+                Demon nextDemone = selectDemon();
+                if (nextDemone != null) {
+                    affrontaDemone(nextDemone);
+                }
+                ricarica.removeIf(r -> r.getTurniRimanentiAllaRicarica() == 0);
+                aggiornaTurno();
             }
-            ricarica.removeIf(r -> r.getTurniRimanentiAllaRicarica() == 0);
-            aggiornaTurno();
+            System.out.println("Ordine demoni: " + demoniOutput.toString());
+            OutputParser.writeResult(demoniOutput, inputFile);
+
         }
-        System.out.println("Ordine demoni: " + demoniOutput.toString());
-        OutputParser.writeResult(demoniOutput, inputFile);
     }
 
     public static void aggiornaTurno() {
