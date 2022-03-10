@@ -8,6 +8,7 @@ public class Demon {
     private int staminaRestituita;
     private int turniFrammenti;
     private List<Integer> frammentiRestituitiPerTurno;
+    private boolean affrontato = false;
 
     public int getStaminaPersa() {
         return staminaPersa;
@@ -47,5 +48,13 @@ public class Demon {
 
     public void setFrammentiRestituitiPerTurno(List<Integer> frammentiRestituitiPerTurno) {
         this.frammentiRestituitiPerTurno = frammentiRestituitiPerTurno;
+    }
+
+    public boolean isAffrontato() {
+        return affrontato;
+    }
+
+    public void setAffrontato(boolean affrontato) {
+        this.affrontato = affrontato;
     }
 }
