@@ -24,9 +24,10 @@ public class Main {
     private static List<Integer> demoniOutput = new ArrayList<>();
     private static List<Ricarica> ricarica = new ArrayList<>();
 
-    private static String inputFile = "00-example.txt";
+    //private static String inputFile = "00-example.txt";
+    private static String inputFile = "01-the-cloud-abyss.txt";
 
-    private static Integer turnoCorrente = 0;
+    private static Integer turnoCorrente = 1;
     private static Integer numeroTurni;
     private static Integer numeroTurniRimanenti;
 
@@ -39,18 +40,26 @@ public class Main {
         numeroTurni = player.getNumeriTurni();
         numeroTurniRimanenti = player.getNumeriTurni();
 
-        while(numeroTurni > 0) {
-            //addStamina();
+        while(numeroTurniRimanenti > 0) {
+            addStamina();
             Demon nextDemone = selectDemon();
-            affrontaDemone(nextDemone);
+            if(nextDemone != null) {
+                affrontaDemone(nextDemone);
+            }
             ricarica.removeIf(r -> r.getTurniRimanentiAllaRicarica() == 0);
             aggiornaTurno();
         }
+        System.out.println("Ordine demoni: " + demoniOutput.toString());
     }
 
     public static void aggiornaTurno() {
         numeroTurniRimanenti--;
-        addStamina();
+        turnoCorrente++;
+    }
+
+    public static void printTurno() {
+        System.out.println("# Turno: " + turnoCorrente);
+
     }
 
     public static void addStamina() {
@@ -88,24 +97,33 @@ public class Main {
     public static Demon selectDemon() {
 
         int staminaRimanente = player.getStamina();
-        List<Demon> affrontabili = demoniInput.stream().filter(d -> d.getStaminaPersa() <= staminaRimanente && !d.isAffrontato()).collect(Collectors.toList());
-
+        List<Demon> affrontabili =
+                demoniInput.stream().filter(d -> d.getStaminaPersa() <= staminaRimanente && !d.isAffrontato() && d.getFrammentiRestituitiPerTurno().size() > 0).collect(Collectors.toList());
+        /*
         if(affrontabili.isEmpty()) {
             aggiornaTurno();
             if(numeroTurniRimanenti == 0)
                 return null;
             selectDemon();
-        }
+        }*/
 
         int turniRimanenti = numeroTurni - turnoCorrente;
 
-        Demon bestDemon = affrontabili.stream().max(Comparator.comparing(demon -> demon.getFrammentiRestituitiPerTurno().get(turniRimanenti-1))).get();
+        if(affrontabili.isEmpty())
+            return null;
 
-        bestDemon.setAffrontato(true);
+        Optional<Demon> bestDemon =
+                affrontabili.stream().max(Comparator.comparing(
+                        demon -> demon.getFrammentiRestituitiPerTurno().get(
+                                Math.max(0, Math.min(turniRimanenti, demon.getFrammentiRestituitiPerTurno().size()-1)))));
 
-        demoniOutput.add(bestDemon.getId());
+        if(!bestDemon.isPresent())
+            return null;
 
-        return bestDemon;
+        bestDemon.get().setAffrontato(true);
+        demoniOutput.add(bestDemon.get().getId());
+
+        return bestDemon.get();
     }
 
 }
