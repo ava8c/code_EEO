@@ -1,4 +1,5 @@
 import helper.InputParser;
+import helper.OutputParser;
 import model.Demon;
 import model.Player;
 import model.Ricarica;
@@ -25,7 +26,7 @@ public class Main {
     private static List<Ricarica> ricarica = new ArrayList<>();
 
     //private static String inputFile = "00-example.txt";
-    private static String inputFile = "01-the-cloud-abyss.txt";
+    private static String inputFile = "05-androids-armageddon";
 
     private static Integer turnoCorrente = 1;
     private static Integer numeroTurni;
@@ -50,16 +51,12 @@ public class Main {
             aggiornaTurno();
         }
         System.out.println("Ordine demoni: " + demoniOutput.toString());
+        OutputParser.writeResult(demoniOutput, inputFile);
     }
 
     public static void aggiornaTurno() {
         numeroTurniRimanenti--;
         turnoCorrente++;
-    }
-
-    public static void printTurno() {
-        System.out.println("# Turno: " + turnoCorrente);
-
     }
 
     public static void addStamina() {

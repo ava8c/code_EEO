@@ -20,7 +20,7 @@ public class InputParser {
 
     public static List<Demon> getDemonsList(String inputFileString) throws IOException{
 
-        String fileName = Paths.get(current_path.toString(), "input", inputFileString).toString();
+        String fileName = Paths.get(current_path.toString(), "input", inputFileString + ".txt").toString();
 
         String inputFile = readFile(fileName, StandardCharsets.UTF_8);
 
@@ -59,7 +59,7 @@ public class InputParser {
     }
 
     public static Player getPlayer(String inputFileString) throws IOException {
-        String fileName = Paths.get(current_path.toString(), "input", inputFileString).toString();
+        String fileName = Paths.get(current_path.toString(), "input", inputFileString + ".txt").toString();
 
         String inputFile = readFile(fileName, StandardCharsets.UTF_8);
 
