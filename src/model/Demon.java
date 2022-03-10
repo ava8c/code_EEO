@@ -3,12 +3,17 @@ package model;
 import java.util.List;
 
 public class Demon {
+    private int id;
     private int staminaPersa;
     private int numeroTurniPerStamina;
     private int staminaRestituita;
     private int turniFrammenti;
     private List<Integer> frammentiRestituitiPerTurno;
     private boolean affrontato = false;
+
+    public Demon(int id) {
+        this.id = id;
+    }
 
     public int getStaminaPersa() {
         return staminaPersa;

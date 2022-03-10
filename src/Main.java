@@ -19,9 +19,11 @@ public class Main {
 
     private static List<Demon> demoniInput = new ArrayList<>();
     private static Player player = new Player();
-    private static List<Demon> demoniOutput = new ArrayList<>();
+    private static List<Integer> demoniOutput = new ArrayList<>();
 
     private static String inputFile = "00-example.txt";
+
+
 
     public static void main(String[] args) throws IOException {
 

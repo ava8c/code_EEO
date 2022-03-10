@@ -37,7 +37,7 @@ public class InputParser {
             String[] splittedLine = line.split(" ");
 
             if (count != 0) {
-                Demon demon = new Demon();
+                Demon demon = new Demon(count-1);
                 demon.setStaminaPersa(Integer.parseInt(splittedLine[0]));
                 demon.setNumeroTurniPerStamina(Integer.parseInt(splittedLine[1]));
                 demon.setStaminaRestituita(Integer.parseInt(splittedLine[2]));
