@@ -39,9 +39,18 @@ public class Main {
         Integer numeroTurni = player.getNumeriTurni();
         Integer[][] ricarica = new Integer[numeroTurni][2];
         
-
-
+        /*
+        aggiungiStamina();
+        selectDemon();
+        affronta();
+        scartaDemone();
+        RicompensaStamina();
+        aggiornaTurno();
+        REPEAT
+        */
     }
+
+    public 
 
     static String readFile(String path, Charset encoding) throws IOException {
         byte[] encoded = Files.readAllBytes(Paths.get(path));
