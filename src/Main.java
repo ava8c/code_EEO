@@ -1,3 +1,4 @@
+import helper.InputParser;
 import model.Demon;
 import model.Player;
 
@@ -24,30 +25,11 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        String fileName = Paths.get(current_path.toString(), "input", inputFile).toString();
+        player = InputParser.getPlayer(inputFile);
+        demoniInput = InputParser.getDemonsList(inputFile);
 
-        String inputFile = readFile(fileName, StandardCharsets.UTF_8);
 
-        String line;
-        Scanner scanner = new Scanner(inputFile);
 
-        int count = 0;
-
-        while (scanner.hasNextLine()) {
-            line = scanner.nextLine();
-
-            if (count == 0) {
-                
-            }
-
-            count++;
-        }
-
-	    System.out.println("prova");
-    }
-
-    static String readFile(String path, Charset encoding) throws IOException {
-        byte[] encoded = Files.readAllBytes(Paths.get(path));
-        return new String(encoded, encoding);
+	    System.out.println("StaminaMax: "+player.getStaminaMax());
     }
 }
