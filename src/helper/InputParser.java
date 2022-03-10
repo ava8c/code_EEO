@@ -43,8 +43,10 @@ public class InputParser {
                 demon.setStaminaRestituita(Integer.parseInt(splittedLine[2]));
                 demon.setTurniFrammenti(Integer.parseInt(splittedLine[3]));
                 ArrayList<Integer> frammentiRestituiti = new ArrayList<>();
+                Integer gemma = 0;
                 for (int i = 4; i < splittedLine.length - 1; i++) {
-                    frammentiRestituiti.add(Integer.parseInt(splittedLine[i]));
+                    gemma += Integer.parseInt(splittedLine[i]);
+                    frammentiRestituiti.add(gemma);
                 }
                 demon.setFrammentiRestituitiPerTurno(frammentiRestituiti);
                 assert demon.getFrammentiRestituitiPerTurno().size() == demon.getTurniFrammenti();

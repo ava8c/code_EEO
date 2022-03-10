@@ -8,10 +8,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -24,6 +22,10 @@ public class Main {
 
     private static String inputFile = "00-example.txt";
 
+    private static Integer turnoCorrente = 0;
+    private static Integer numeroTurni;
+    private static Integer[][] ricarica;
+
 
 
     public static void main(String[] args) throws IOException {
@@ -35,9 +37,8 @@ public class Main {
 
 	    System.out.println("Inizio gioco");
 
-        Integer turnoCorrente = 0;
-        Integer numeroTurni = player.getNumeriTurni();
-        Integer[][] ricarica = new Integer[numeroTurni][2];
+        numeroTurni = player.getNumeriTurni();
+        ricarica = new Integer[numeroTurni][2];
         
         /*
         aggiungiStamina();
@@ -62,16 +63,20 @@ public class Main {
 
     }
 
-    public Integer selectDemon(List<Demon> demons, Player yone, Demon lastDemon) {
+    public Demon selectDemon( Player yone) {
 
         int staminaRimanente = yone.getStamina();
-        List<Demon> affrontabili =
-                (List<Demon>) demons.stream().filter(d -> d.getStaminaPersa() <= staminaRimanente && !d.isAffrontato());
+        List<Demon> affrontabili = demoniInput.stream().filter(d -> d.getStaminaPersa() <= staminaRimanente && !d.isAffrontato()).collect(Collectors.toList());
 
+        int turniRimanenti = numeroTurni - turnoCorrente;
 
-        int staminaRicaricata =
+        Demon bestDemon = affrontabili.stream().max(Comparator.comparing(demon -> demon.getFrammentiRestituitiPerTurno().get(turniRimanenti-1))).get();
 
-        return null;
+        bestDemon.setAffrontato(true);
+
+        demoniOutput.add(bestDemon.getId());
+        
+        return bestDemon;
     }
 
 }
